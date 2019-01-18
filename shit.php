@@ -12,7 +12,7 @@ $player = fch("SELECT * FROM `amx_bans` WHERE `bid` = ? LIMIT 1", array($id));
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Скрипт разбана игроков">
-	<title>Забанен игрок - <?=$player['player_nick'];?></title>
+	<title>Игрок - <?=$player['player_nick'];?></title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -38,7 +38,8 @@ $player = fch("SELECT * FROM `amx_bans` WHERE `bid` = ? LIMIT 1", array($id));
 
 <body>
 	<div class="container">
-		<div style="padding-bottom: 60px;"><?php require_once 'menu.php';?></div>
+		<div style="padding-bottom: 60px;">
+		<?php require_once 'menu.php';?></div>
 		<div class="row">
 			<div class="col">
 				<div class="card">
@@ -72,15 +73,17 @@ $player = fch("SELECT * FROM `amx_bans` WHERE `bid` = ? LIMIT 1", array($id));
 								<tr><th>Дата</th><td><?=tm($player['ban_created']);?></td></tr>
 								<tr><th>Срок бана</th><td>
 									<?php 
-									if ( $player['ban_length'] == -1 ) {
-										echo '<div style="color: #00ad17;">Разбанен</div>';
-									} elseif ( $player['expired'] == 1 ) {
-										echo '<div style="color: #00ad17;">' . $player['ban_length'] . ' мин.</div>';
-									} elseif ( $player['ban_length'] == 0 ) {
-										echo '<div style="color: #c50000;">Навсегда</div>';
-									} else {
-										echo $player['ban_length'] . ' мин.';
-									}
+										if ( $player['ban_length'] == -1 ) {
+											echo '<div style="color: #00ad17;">Разбанен</div>';
+										} elseif ( $player['expired'] == 1 ) {
+											echo '<div style="color: #00ad17;">' . $player['ban_length'] . ' мин.</div>';
+										} elseif ( $player['ban_length'] == 0 ) {
+											echo '<div style="color: #c50000;">Навсегда</div>';
+										} elseif ( ($player['ban_created'] + $player['ban_length'] * 60) < time() ) {
+											echo '<div style="color: #00ad17;">' . $player['ban_length'] . ' мин.</div>';
+										} else {
+											echo $player['ban_length'] . ' мин.';
+										}
 									;?>
 								</td></tr>
 								<tr><th>Название сервера</th><td><?=$player['server_name'];?></td></tr>
@@ -105,15 +108,17 @@ $player = fch("SELECT * FROM `amx_bans` WHERE `bid` = ? LIMIT 1", array($id));
 											<td><?=$row['ban_reason']?></td>
 											<td>
 												<?php 
-												if ( $row['ban_length'] == -1 ) {
-													echo '<div style="color: #00ad17;">Разбанен</div>';
-												} elseif ( $row['expired'] == 1 ) {
-													echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
-												} elseif ( $row['ban_length'] == 0 ) {
-													echo '<div row="color: #c50000;">Навсегда</div>';
-												} else {
-													echo $row['ban_length'] . ' мин.';
-												}
+													if ( $row['ban_length'] == -1 ) {
+														echo '<div style="color: #00ad17;">Разбанен</div>';
+													} elseif ( $row['expired'] == 1 ) {
+														echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
+													} elseif ( $row['ban_length'] == 0 ) {
+														echo '<div style="color: #c50000;">Навсегда</div>';
+													} elseif ( ($row['ban_created'] + $row['ban_length'] * 60) < time() ) {
+														echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
+													} else {
+														echo $row['ban_length'] . ' мин.';
+													}
 												;?>
 											</td>
 											</tr>

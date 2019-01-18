@@ -51,6 +51,7 @@ if( $tot > 0 ){ ?>
 			<div class="col">
 				<div class="card">
 					<div class="card-body" style="font-size: 13px;">
+						<h5 class="text-center">Совпадений: <?=$tot;?></h5>
 						<table class="table table-hover table-sm table-bordered table-striped">
 							<thead>
 								<tr>

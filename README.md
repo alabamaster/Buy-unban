@@ -5,8 +5,8 @@
 - Распакуйте архив с флагами в папке flags
 
 ## Скриншоты
-![enter image description here](https://imgur.com/D1djWkH)
-![enter image description here](https://imgur.com/JlNSLMu)
+![index.php](http://url/to/img.png)
+![shit.php](http://url/to/img.png)
 
 ## Не готово
 - success.php

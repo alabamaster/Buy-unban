@@ -7,7 +7,3 @@
 ## Скриншоты
 - index.php https://imgur.com/D1djWkH
 - shit.php https://imgur.com/JlNSLMu
-
-## Не готово
-- success.php
-- fail.php

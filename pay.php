@@ -4,12 +4,6 @@
 	require_once "inc/database.php";
 
 	$data = $_POST;
-/*
-	$sql = "UPDATE amx_bans SET ban_length = '-1' WHERE bid = ".$data['us_bid']."";
-	$params = [ ':bid' => $data['us_bid'] ];
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute($params);
-*/	
 	echo '
 	<html> 
 	<head>

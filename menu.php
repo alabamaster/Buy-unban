@@ -18,7 +18,7 @@
     </ul>
   </div>
   <form method="GET" action="<?=$url;?>search.php" class="form-inline my-2 my-lg-0" style="padding-right: 20px;">
-      <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="SteamID, Nickname, IP" id="search" name="search" value="" required="" aria-label="Search" autocomplete="off" size="25" maxlength="25" minlength="4">
+      <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="SteamID, Nickname, IP" id="search" name="search" value="" required="" aria-label="Search" autocomplete="off" size="25" maxlength="25" minlength="3">
       <button class="btn btn-sm btn-secondary my-2 my-sm-0" type="submit">Найти</button>
     </form>
   <div class="menu">

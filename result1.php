@@ -1,5 +1,5 @@
 <?php 
-	require_once 'cfg.php';
+	require_once 'inc/cfg.php';
 
 	$sign = md5($merchant_id.':'.$_REQUEST['AMOUNT'].':'.$secret_word2.':'.$_REQUEST['MERCHANT_ORDER_ID']);
 	if ($sign != $_REQUEST['SIGN']) {

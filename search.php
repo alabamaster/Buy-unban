@@ -1,5 +1,6 @@
 <?php
-	require_once 'cfg.php';
+	require_once 'inc/cfg.php';
+	require_once 'inc/pagination.php';
 	require_once 'inc/gip/geoip.inc';
 	$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
 

@@ -1,4 +1,4 @@
-<?php require_once 'cfg.php';?>
+<?php require_once 'inc/cfg.php';?>
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">HERE BUY UNBAN <i class="fa fa-user-times" aria-hidden="true"></i></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

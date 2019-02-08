@@ -1,5 +1,5 @@
 <?php 
-	require_once "cfg.php";
+	require_once "inc/cfg.php";
 
 	$data = $_POST;
 	echo '

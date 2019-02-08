@@ -1,7 +1,6 @@
 <?php
 	require_once 'cfg.php';
-	require_once ('inc/gip/geoip.inc');
-	$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
+	require_once 'pagination.php';
 ?>
 <div class="card">
 	<div class="card-body" style="font-size: 13px;">
@@ -18,6 +17,8 @@
 			</thead>
 			<tbody>
 				<?php
+				require_once 'inc/gip/geoip.inc';
+				$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
 				$count = $res->rowCount();
 				if ($count > 0) {
 					while ( $row = $res->fetch(PDO::FETCH_ASSOC) ) { ?>

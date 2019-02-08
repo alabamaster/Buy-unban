@@ -24,7 +24,7 @@
 		<div style="padding-bottom: 60px;"><?php require 'menu.php';?></div>
 		<div class="row">
 			<div class="col">
-				<?php require 'inc/list_bans.php';?>
+				<?php require_once 'inc/list_bans.php';?>
 			</div>
 		</div>
 	</div>

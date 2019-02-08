@@ -26,6 +26,6 @@ $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
 
-$ReadSql = "SELECT * FROM '".$prefix_db."'_bans ORDER BY bid DESC LIMIT $start, $perpage";
+$ReadSql = "SELECT * FROM ".$prefix_db."_bans ORDER BY bid DESC LIMIT $start, $perpage";
 $res = $pdo->query($ReadSql);
 ?>

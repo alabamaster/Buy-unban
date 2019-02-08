@@ -1,5 +1,6 @@
 <?php
-	require_once 'cfg.php';
+	require_once 'inc/cfg.php';
+	require_once 'inc/pagination.php';
 
 	$id = abs( ( int ) $_GET['id'] );
 
@@ -7,6 +8,7 @@
 	$params = [ ':id' => $id ];
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($params);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -14,7 +16,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Скрипт разбана игроков">
-	<title>Игрок - <?=$stmt['player_nick'];?></title>
+	<title>Игрок - <?=$row['player_nick'];?></title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<!-- jQuery library -->
@@ -31,7 +33,7 @@
 <body>
 	<div class="container">
 		<div style="padding-bottom: 60px;">
-		<?php require_once 'menu.php';?></div>
+		<?php require 'menu.php';?></div>
 		<div class="row">
 			<div class="col">
 				<div class="card">
@@ -45,10 +47,10 @@
 								<b>Цена: <?=$price;?> руб.</b>
 							</p>
 							<form action="pay.php" method="POST">
-								<input type="hidden" name="us_ip" value="<?=$stmt['player_ip'];?>">
-								<input type="hidden" name="us_steamid" value="<?=$stmt['player_id'];?>">
-								<input type="hidden" name="us_nick" value="<?=$stmt['player_nick'];?>">
-								<input type="hidden" name="us_bid" value="<?=$stmt['bid'];?>">
+								<input type="hidden" name="us_ip" value="<?=$row['player_ip'];?>">
+								<input type="hidden" name="us_steamid" value="<?=$row['player_id'];?>">
+								<input type="hidden" name="us_nick" value="<?=$row['player_nick'];?>">
+								<input type="hidden" name="us_bid" value="<?=$row['bid'];?>">
 								<input style="max-width: 400px;" class="btn btn-lg btn-block btn-info" type="submit" value="Оплатить" name="submit">
 							</form>
 						</div>
@@ -57,29 +59,29 @@
 						<div class="col">
 							<div class="row">
 								<table style="text-align: left" class="table table-hover table-sm table-bordered table-striped"><tbody>
-								<tr><th>IP игрока</th><td><?=$stmt['player_ip'];?></td></tr>
-								<tr><th>Steam  игрока</th><td><?=$stmt['player_id'];?></td></tr>
-								<tr><th>Ник игрока</th><td><?=$stmt['player_nick'];?></td></tr>
-								<tr><th>Админ</th><td><?=$stmt['admin_nick'];?></td></tr>
-								<tr><th>Причина</th><td><?=$stmt['ban_reason'];?></td></tr>
-								<tr><th>Дата</th><td><?=tm($stmt['ban_created']);?></td></tr>
+								<tr><th>IP игрока</th><td><?=$row['player_ip'];?></td></tr>
+								<tr><th>Steam  игрока</th><td><?=$row['player_id'];?></td></tr>
+								<tr><th>Ник игрока</th><td><?=$row['player_nick'];?></td></tr>
+								<tr><th>Админ</th><td><?=$row['admin_nick'];?></td></tr>
+								<tr><th>Причина</th><td><?=$row['ban_reason'];?></td></tr>
+								<tr><th>Дата</th><td><?=tm($row['ban_created']);?></td></tr>
 								<tr><th>Срок бана</th><td>
 									<?php 
-										if ( $stmt['ban_length'] == -1 ) {
+										if ( $row['ban_length'] == -1 ) {
 											echo '<div style="color: #00ad17;">Разбанен</div>';
-										} elseif ( $stmt['expired'] == 1 ) {
-											echo '<div style="color: #00ad17;">' . $stmt['ban_length'] . ' мин.</div>';
-										} elseif ( $stmt['ban_length'] == 0 ) {
+										} elseif ( $row['expired'] == 1 ) {
+											echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
+										} elseif ( $row['ban_length'] == 0 ) {
 											echo '<div style="color: #c50000;">Навсегда</div>';
-										} elseif ( ($stmt['ban_created'] + $stmt['ban_length'] * 60) < time() ) {
-											echo '<div style="color: #00ad17;">' . $stmt['ban_length'] . ' мин.</div>';
+										} elseif ( ($row['ban_created'] + $row['ban_length'] * 60) < time() ) {
+											echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
 										} else {
-											echo $stmt['ban_length'] . ' мин.';
+											echo $row['ban_length'] . ' мин.';
 										}
 									;?>
 								</td></tr>
-								<tr><th>Название сервера</th><td><?=$stmt['server_name'];?></td></tr>
-								<tr><th>Кики</th><td><?=$stmt['ban_kicks'];?></td></tr>
+								<tr><th>Название сервера</th><td><?=$row['server_name'];?></td></tr>
+								<tr><th>Кики</th><td><?=$row['ban_kicks'];?></td></tr>
 								</tbody></table>
 
 								<!-- povtor start -->
@@ -88,35 +90,35 @@
 								<tr><th>Ник игрока</th><th>Steam  игрока</th><th>IP игрока</th><th>Дата</th><th>Причина</th><th>Срок бана</th></tr>
 								</thead><tbody>
 								<?php 
-									$query = $pdo->query("SELECT * FROM ".$prefix_db."_bans WHERE player_id = ".$player['player_id']." OR player_ip = ".$player['player_ip']."");
+									$query = $pdo->query("SELECT * FROM ".$prefix_db."_bans WHERE player_id = '".$row['player_id']."' OR player_ip = '".$row['player_ip']."'");
 									$count = $query->rowCount();
 									if ( $count > 1 ) {
-										while ( $row = $query->fetch(PDO::FETCH_ASSOC) ) { ?>
+										while ( $row1 = $query->fetch(PDO::FETCH_ASSOC) ) { ?>
 											<tr>
-											<td><?=$row['player_nick']?></td>
-											<td><?=$row['player_id']?></td>
-											<td><?=$row['player_ip']?></td>
-											<td><?=tm($row['ban_created'])?></td>
-											<td><?=$row['ban_reason']?></td>
+											<td><?=$row1['player_nick']?></td>
+											<td><?=$row1['player_id']?></td>
+											<td><?=$row1['player_ip']?></td>
+											<td><?=tm($row1['ban_created'])?></td>
+											<td><?=$row1['ban_reason']?></td>
 											<td>
 												<?php 
-													if ( $row['ban_length'] == -1 ) {
+													if ( $row1['ban_length'] == -1 ) {
 														echo '<div style="color: #00ad17;">Разбанен</div>';
-													} elseif ( $row['expired'] == 1 ) {
-														echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
-													} elseif ( $row['ban_length'] == 0 ) {
+													} elseif ( $row1['expired'] == 1 ) {
+														echo '<div style="color: #00ad17;">' . $row1['ban_length'] . ' мин.</div>';
+													} elseif ( $row1['ban_length'] == 0 ) {
 														echo '<div style="color: #c50000;">Навсегда</div>';
-													} elseif ( ($row['ban_created'] + $row['ban_length'] * 60) < time() ) {
-														echo '<div style="color: #00ad17;">' . $row['ban_length'] . ' мин.</div>';
+													} elseif ( ($row1['ban_created'] + $row1['ban_length'] * 60) < time() ) {
+														echo '<div style="color: #00ad17;">' . $row1['ban_length'] . ' мин.</div>';
 													} else {
-														echo $row['ban_length'] . ' мин.';
+														echo $row1['ban_length'] . ' мин.';
 													}
 												;?>
 											</td>
 											</tr>
 										<?php }
 									}
-								;?>
+								?>
 								</tbody></table>
 								<!-- povtor end -->
 							</div>

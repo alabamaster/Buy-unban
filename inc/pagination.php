@@ -11,7 +11,7 @@ if(isset($_GET['page']) & !empty($_GET['page']))
   $curpage = 1;
 }
 
-$pageres = $pdo->query('SELECT COUNT(*) AS count FROM amx_bans');
+$pageres = $pdo->query("SELECT COUNT(*) AS count FROM '".$prefix_db."'_bans");
 $result = $pageres->fetch(PDO::FETCH_ASSOC);
 $count = $result['count'];
 
@@ -27,6 +27,6 @@ $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
 
-$ReadSql = "SELECT * FROM amx_bans ORDER BY bid DESC LIMIT $start, $perpage";
+$ReadSql = "SELECT * FROM '".$prefix_db."'_bans ORDER BY bid DESC LIMIT $start, $perpage";
 $res = $pdo->query($ReadSql);
 ?>

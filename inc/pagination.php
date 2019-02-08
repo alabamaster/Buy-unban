@@ -1,6 +1,5 @@
 <?php 
 require_once 'cfg.php';
-require_once 'database.php';
 
 //$perpage = '10'; # pagination// to cfg
 if(isset($_GET['page']) & !empty($_GET['page']))
@@ -11,7 +10,7 @@ if(isset($_GET['page']) & !empty($_GET['page']))
   $curpage = 1;
 }
 
-$pageres = $pdo->query("SELECT COUNT(*) AS count FROM '".$prefix_db."'_bans");
+$pageres = $pdo->query("SELECT COUNT(*) AS count FROM ".$prefix_db."_bans");
 $result = $pageres->fetch(PDO::FETCH_ASSOC);
 $count = $result['count'];
 

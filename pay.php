@@ -1,7 +1,5 @@
 <?php 
 	require_once "cfg.php";
-	require_once "inc/func.php";
-	require_once "inc/database.php";
 
 	$data = $_POST;
 	echo '

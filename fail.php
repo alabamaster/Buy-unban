@@ -1,8 +1,5 @@
 <?php 
-require_once ('inc/database.php');
-require_once ('inc/func.php');
-require_once ('cfg.php');
-require_once ('inc/pagination.php');
+require_once 'cfg.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">

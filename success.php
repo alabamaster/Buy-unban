@@ -1,8 +1,7 @@
 <?php 
-require_once ('inc/database.php');
-require_once ('inc/func.php');
-require_once ('cfg.php');
-require_once ('inc/pagination.php');
+	require_once 'cfg.php';
+	require_once ('inc/gip/geoip.inc');
+	$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -23,12 +22,9 @@ require_once ('inc/pagination.php');
 
 <body>
 	<div class="container">
-		<div style="padding-bottom: 60px;"><?php require_once ('menu.php');?></div>
+		<div style="padding-bottom: 60px;"><?php require ('menu.php');?></div>
 		<div class="row">
 			<div class="col">
-				<?php
-				require_once ('inc/gip/geoip.inc');
-				$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );?>
 				<div class="card">
 					<div class="card-body" style="font-size: 13px;">
 						<div class="alert alert-success" role="alert">

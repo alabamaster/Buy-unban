@@ -1,12 +1,8 @@
 <?php
-require_once ('database.php');
-require_once ('func.php');
-require_once ('cfg.php');
-require_once 'pagination.php';
-
-# флаги стран
-require_once ('inc/gip/geoip.inc');
-$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );?>
+	require_once 'cfg.php';
+	require_once ('inc/gip/geoip.inc');
+	$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
+?>
 <div class="card">
 	<div class="card-body" style="font-size: 13px;">
 		<div class="alert alert-info text-center" role="alert">Ваш IP: <b><?=$_SERVER["REMOTE_ADDR"];?></b></div>

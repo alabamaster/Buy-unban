@@ -1,7 +1,5 @@
 <?php 
-	require_once ('cfg.php');
-	require_once ('inc/database.php');
-	require_once ('inc/func.php');
+	require_once 'cfg.php';
 
 	$sign = md5($merchant_id.':'.$_REQUEST['AMOUNT'].':'.$secret_word2.':'.$_REQUEST['MERCHANT_ORDER_ID']);
 	if ($sign != $_REQUEST['SIGN']) {
@@ -21,7 +19,7 @@
 		echo "OK$m_id\n";
 	}
 	
-	$sql = "UPDATE '".$prefix_db."'_bans SET ban_length = '-1' WHERE bid = :bid";
+	$sql = "UPDATE ".$prefix_db."_bans SET ban_length = '-1' WHERE bid = :bid";
 	$params = [ ':bid' => $ban_id ];
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($params);

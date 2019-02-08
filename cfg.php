@@ -1,4 +1,8 @@
 <?php
+	require_once 'pagination.php';
+	require_once 'database.php';
+	require_once 'func.php';
+
 	$url = ""; # полный url сайта и / в конце
 
 	// данные freekassa

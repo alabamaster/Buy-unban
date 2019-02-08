@@ -1,14 +1,12 @@
 <?php
-include_once 'inc/database.php';
-include_once 'inc/func.php';
-require_once 'cfg.php';
+	require_once 'cfg.php';
 
-$id = abs( ( int ) $_GET['id'] );
+	$id = abs( ( int ) $_GET['id'] );
 
-$sql = "SELECT * FROM '".$prefix_db."'_bans WHERE bid = :id LIMIT 1";
-$params = [ ':id' => $id ];
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
+	$sql = "SELECT * FROM ".$prefix_db."_bans WHERE bid = :id LIMIT 1";
+	$params = [ ':id' => $id ];
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute($params);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -90,7 +88,7 @@ $stmt->execute($params);
 								<tr><th>Ник игрока</th><th>Steam  игрока</th><th>IP игрока</th><th>Дата</th><th>Причина</th><th>Срок бана</th></tr>
 								</thead><tbody>
 								<?php 
-									$query = $pdo->query("SELECT * FROM '".$prefix_db."'_bans WHERE player_id = '".$player['player_id']."' OR player_ip = '".$player['player_ip']."'");
+									$query = $pdo->query("SELECT * FROM ".$prefix_db."_bans WHERE player_id = ".$player['player_id']." OR player_ip = ".$player['player_ip']."");
 									$count = $query->rowCount();
 									if ( $count > 1 ) {
 										while ( $row = $query->fetch(PDO::FETCH_ASSOC) ) { ?>

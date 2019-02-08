@@ -1,19 +1,16 @@
 <?php
-require_once 'inc/database.php';
-require_once 'inc/func.php';
-require_once 'cfg.php';
-require_once 'inc/gip/geoip.inc';
+	require_once 'cfg.php';
+	require_once 'inc/gip/geoip.inc';
+	$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
 
-$gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
+	$search = trim($_GET['search']);
 
-$search = trim($_GET['search']);
-
-if ( !empty($search) ) {
-	$sql = "SELECT * FROM '".$prefix_db."'_bans WHERE player_nick LIKE :search OR player_id LIKE :search OR player_ip LIKE :search ORDER BY bid ASC";
-	$params = [ ':search' => $search ];
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute($params);
-}
+	if ( !empty($search) ) {
+		$sql = "SELECT * FROM ".$prefix_db."_bans WHERE player_nick LIKE :search OR player_id LIKE :search OR player_ip LIKE :search ORDER BY bid ASC";
+		$params = [ ':search' => $search ];
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute($params);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

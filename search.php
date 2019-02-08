@@ -9,7 +9,7 @@ $gi = geoip_open('inc/gip/GeoIP.dat', GEOIP_STANDARD );
 $search = trim($_GET['search']);
 
 if ( !empty($search) ) {
-	$sql = "SELECT * FROM amx_bans WHERE player_nick LIKE :search OR player_id LIKE :search OR player_ip LIKE :search ORDER BY bid ASC";
+	$sql = "SELECT * FROM '".$prefix_db."'_bans WHERE player_nick LIKE :search OR player_id LIKE :search OR player_ip LIKE :search ORDER BY bid ASC";
 	$params = [ ':search' => $search ];
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($params);
@@ -22,7 +22,6 @@ if ( !empty($search) ) {
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Скрипт разбана игроков">
 	<title>Разбан игроков</title>
-
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<!-- Latest compiled JavaScript -->

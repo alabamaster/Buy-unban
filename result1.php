@@ -21,7 +21,7 @@
 		echo "OK$m_id\n";
 	}
 	
-	$sql = "UPDATE amx_bans SET ban_length = '-1' WHERE bid = :bid";
+	$sql = "UPDATE '".$prefix_db."'_bans SET ban_length = '-1' WHERE bid = :bid";
 	$params = [ ':bid' => $ban_id ];
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($params);
